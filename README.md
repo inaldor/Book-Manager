@@ -13,9 +13,11 @@ This app is the result of my studies using CoreData and SQLite. It is a simple a
 
 ## Pictures
 
-<img src="oooo" width=300>
-<img src="oooo" width=300>
+<img src="https://github.com/inaldor/Book-Manager/blob/master/app-images/home.png" width=300>
+<img src="https://github.com/inaldor/Book-Manager/blob/master/app-images/addingnewbook1.png" width=300>
+<img src="https://github.com/inaldor/Book-Manager/blob/master/app-images/addingnewbook2.png" width=300>
+<img src="https://github.com/inaldor/Book-Manager/blob/master/app-images/results.png" width=300>
 
 ## License
 
-This project is licensed under the [MIT License](oooo)
+This project is licensed under the [MIT License](https://github.com/inaldor/Book-Manager/blob/master/LICENSE)

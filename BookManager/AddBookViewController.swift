@@ -15,11 +15,44 @@ class AddBookViewController: UIViewController {
     
     let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
+    var items: [Book]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        do {
+            self.items = try Book.getAll()
+            print("Books fetched.")
+        } catch {
+            print("Error fetchet books.")
+        }
+        
     }
+    
+    @IBAction func deleteButton(_ sender: UIButton) {
+                
+        guard let book = self.items else { return }
+        
+        guard let context = self.context else { return }
+        
+        for x in book {
+            
+            if x.authorName == "Paulo Coelho" {
+                
+                context.delete(x)
+                
+            }
+        }
+        
+        do {
+            try context.save()
+            print("Book saved")
+        } catch  {
+            print("Failed to save object.")
+            return
+        }
+    }
+    
     
     @IBAction func cancelButtonTap(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true)
@@ -40,7 +73,6 @@ class AddBookViewController: UIViewController {
         book.authorName = txtAuthor.text
         
         do {
-//            try (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
             try context.save()
             print("Book saved")
         } catch  {
@@ -50,15 +82,4 @@ class AddBookViewController: UIViewController {
         
         self.dismiss(animated: true)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

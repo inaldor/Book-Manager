@@ -14,6 +14,10 @@ class BooksViewController: UIViewController {
     
     var items: [Book]?
     
+    var bookTitle = ""
+    
+    let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -77,7 +81,67 @@ extension BooksViewController: UITableViewDataSource {
         
         return cell
     }
+    
+    private func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        guard let context = self.context else { return }
+        
+        guard let book = self.items?[indexPath.row] else { return }
 
+        if editingStyle == .delete {
+            
+            tableView.beginUpdates()
+            
+            // We need to delete from 3 sources
+            // First one from Source Array of items
+            items?.remove(at: indexPath.row)
+            
+            // Second from the Table View
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            // Third from the CoreData itself
+            context.delete(book)
+            
+            tableView.endUpdates()
+            
+            do {
+                try context.save()
+                print("Book deleted")
+            } catch  {
+                print("Failed to delete object.")
+                return
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        guard let book = self.items?[indexPath.row] else { return indexPath }
+        
+        bookTitle = book.title ?? ""
+        
+        return indexPath
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "editBook" {
+            
+            let destinationVC = segue.destination as! EditBookViewController
+            destinationVC.bookTitle = bookTitle
+        }
+    }
 }
 
 extension BooksViewController: UITableViewDelegate {

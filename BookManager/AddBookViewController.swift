@@ -67,14 +67,17 @@ class AddBookViewController: UIViewController {
         }
         
         let book = Book(context: context)
+        let author = Author(context: context)
         
         book.title = txtTitle.text
         book.price = txtPriceFloat
-        book.authorName = txtAuthor.text
+        author.name = txtAuthor.text
+        
+        author.addToBooks(book)
         
         do {
             try context.save()
-            print("Book saved")
+            print("Book and Author saved")
         } catch  {
             print("Failed to save object.")
             return

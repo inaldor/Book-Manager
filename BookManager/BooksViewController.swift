@@ -13,8 +13,9 @@ class BooksViewController: UIViewController {
     private let refreshControl: UIRefreshControl = UIRefreshControl()
     
     var items: [Book]?
+    var authors: [Author]?
     
-    var bookTitle = ""
+    var bookTitle: Book?
     
     let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
@@ -37,8 +38,10 @@ class BooksViewController: UIViewController {
         do {
             self.items = try Book.getAll()
             print("Books fetched.")
+            self.authors = try Author.getAll()
+            print("Authors fetched.")
         } catch {
-            print("Error fetchet books.")
+            print("Error fetchet books or authors.")
         }
         
         DispatchQueue.main.async {
@@ -61,22 +64,41 @@ class BooksViewController: UIViewController {
 
 extension BooksViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let items = self.items else {
-            return 0
-        }
         
-        return items.count
+        guard let author = self.authors?[section] else { return 0 }
+        
+        
+        return author.books?.count ?? 0
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        guard let authors = self.authors else { return 0 }
+
+        return authors.count
     }
 
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let author = self.authors?[section] else { return "" }
+        
+        return author.name
+        
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         
-        guard let book = self.items?[indexPath.row] else { return cell }
+        //guard let book = self.items?[indexPath.row] else { return cell }
         
-        cell.textLabel?.text = book.title
+        guard let author = self.authors?[indexPath.section] else { return cell }
+        
+        //author.books?.allObjects
+        
+        guard let book = author.books?.allObjects[indexPath.row] as? Book else { return cell }
+        
+        cell.textLabel?.text = book.title //book.title
         cell.detailTextLabel?.text = formatter.string(from: NSNumber(value: book.price))
         
         return cell
@@ -128,7 +150,7 @@ extension BooksViewController: UITableViewDataSource {
         
         guard let book = self.items?[indexPath.row] else { return indexPath }
         
-        bookTitle = book.title ?? ""
+        bookTitle = book
         
         return indexPath
         

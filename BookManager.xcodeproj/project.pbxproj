@@ -17,6 +17,7 @@
 		861C3CE7254F010F0086D58E /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861C3CE6254F010F0086D58E /* AddBookViewController.swift */; };
 		86862D67255204F600C6CED3 /* Book+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86862D65255204F600C6CED3 /* Book+CoreDataClass.swift */; };
 		CDC68DFB25857F7400DD032E /* EditBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC68DFA25857F7400DD032E /* EditBookViewController.swift */; };
+		CDC68E042586625B00DD032E /* Author+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC68E022586625B00DD032E /* Author+CoreDataClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		861C3CE6254F010F0086D58E /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
 		86862D65255204F600C6CED3 /* Book+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+CoreDataClass.swift"; sourceTree = "<group>"; };
 		CDC68DFA25857F7400DD032E /* EditBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookViewController.swift; sourceTree = "<group>"; };
+		CDC68E022586625B00DD032E /* Author+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Author+CoreDataClass.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				86862D65255204F600C6CED3 /* Book+CoreDataClass.swift */,
+				CDC68E022586625B00DD032E /* Author+CoreDataClass.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 				861C3CE7254F010F0086D58E /* AddBookViewController.swift in Sources */,
 				861C3CCB254EC1F90086D58E /* AppDelegate.swift in Sources */,
 				861C3CE1254EC43D0086D58E /* BookManager.xcdatamodeld in Sources */,
+				CDC68E042586625B00DD032E /* Author+CoreDataClass.swift in Sources */,
 				86862D67255204F600C6CED3 /* Book+CoreDataClass.swift in Sources */,
 				861C3CCD254EC1F90086D58E /* SceneDelegate.swift in Sources */,
 				CDC68DFB25857F7400DD032E /* EditBookViewController.swift in Sources */,

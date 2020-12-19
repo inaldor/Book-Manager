@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class BooksViewController: UIViewController {
 
@@ -28,6 +29,12 @@ class BooksViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         reloadBooks()
+        
+        for x in authors! {
+            
+            print(x.books)
+            
+        }
     }
     
     @objc fileprivate func reloadBooks() {
@@ -49,17 +56,6 @@ class BooksViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension BooksViewController: UITableViewDataSource {
@@ -67,13 +63,12 @@ extension BooksViewController: UITableViewDataSource {
         
         guard let author = self.authors?[section] else { return 0 }
         
-        
         return author.books?.count ?? 0
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         guard let authors = self.authors else { return 0 }
-
+    
         return authors.count
     }
 
